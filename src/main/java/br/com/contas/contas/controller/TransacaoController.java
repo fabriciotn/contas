@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
+import java.util.List;
 
 @RestController
 @RequestMapping("/transacao/")
@@ -18,10 +18,19 @@ public class TransacaoController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void save(@RequestBody Transacao transacao){
-        transacao.setId(UUID.randomUUID().toString());
-        transacao.setSort("TRANSACAO");
+    public Transacao save(@RequestBody Transacao transacao){
+        return transacaoService.save(transacao);
+    }
 
-        transacaoService.save(transacao);
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Transacao findById(@RequestParam String id){
+        return transacaoService.findById(id);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(path = "/findAll", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<Transacao> findAll(){
+        return transacaoService.findAll();
     }
 }

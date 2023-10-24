@@ -28,6 +28,8 @@ public class Transacao {
     @Getter(onMethod_ = {@DynamoDbConvertedBy(OffsetDateTimeAsStringAttributeConverter.class)})
     OffsetDateTime dataPagamento;
 
+    String dataReferencia;
+
     String descricao;
 
     Boolean ehRecorrente;
